@@ -1,6 +1,6 @@
 class nullmailer::package {
   package { $nullmailer::package:
-    ensure => present,
+    ensure => $nullmailer::ensure,
   }
 
   package { $nullmailer::absentpackages:

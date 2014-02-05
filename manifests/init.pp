@@ -3,16 +3,16 @@ class nullmailer (
   $absentpackages = $nullmailer::params::absentpackages,
   $service = $nullmailer::params::service,
   $manage_etc_mailname = $nullmailer::params::manage_etc_mailname,
-  $adminaddr = "root@$::domain",
-  $remoterelay = "smtp.$::domain",
-  $remoteopts = ''
+  $ensure = 'present') inherits nullmailer::params {
+  if $ensure == 'present' {
+    anchor { 'nullmailer::start': } ->
+    class { 'nullmailer::package': } ~>
+    class { 'nullmailer::config': } ~>
+    class { 'nullmailer::service': } ~>
+    anchor { 'nullmailer::end': }
 
-) inherits nullmailer::params {
-
-  anchor {'nullmailer::start':}->
-  class {'nullmailer::package':}~>
-  class {'nullmailer::config':}~>
-  class {'nullmailer::service':}~>
-  anchor {'nullmailer::end':}
+  } else {
+    class { 'nullmailer::package': }
+  }
 
 }
