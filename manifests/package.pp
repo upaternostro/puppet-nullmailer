@@ -4,7 +4,8 @@ class nullmailer::package {
   }
 
   if $nullmailer::ensure == 'present' {
-  package { $nullmailer::absentpackages:
-    ensure => absent,
+    package { $nullmailer::absentpackages:
+      ensure => absent,
+    }
   }
 }
